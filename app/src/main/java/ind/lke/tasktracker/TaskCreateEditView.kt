@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
+import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import ind.lke.tasktracker.Room.Task
 import kotlinx.coroutines.launch
@@ -57,7 +58,7 @@ fun TaskCreateEditView(
     val scaffoldState = rememberScaffoldState()
     val context = LocalContext.current
     var messageState = remember {
-        mutableStateOf("")
+        mutableStateOf("Invalid Entry")
     }
 
     if(id != 0L) { // Update Task
@@ -77,7 +78,13 @@ fun TaskCreateEditView(
         selection = CalendarSelection.Date { date ->
             val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
             viewModel.onTaskDueDateChanged(formatter.format(date))
-        })
+        },
+        config = CalendarConfig(
+            monthSelection = true,
+            yearSelection = true,
+            maxYear = 3000
+            )
+        )
 
     Scaffold(
         topBar = {
@@ -153,6 +160,7 @@ fun TaskCreateEditView(
                 } else {
                     // invalid entry
                     scope.launch {
+                        messageState.value = "Invalid Entry"
                         scaffoldState.snackbarHostState.showSnackbar(messageState.value, duration = SnackbarDuration.Short)
                     }
                 }
