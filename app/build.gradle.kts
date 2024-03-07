@@ -58,6 +58,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.com.maxkeppeler.sheets.compose.dialogs.core)
     implementation(libs.com.maxkeppeler.sheets.compose.dialogs.calender)
+    implementation(libs.com.github.muazkadan.switchy.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

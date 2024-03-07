@@ -30,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +41,7 @@ import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
+import dev.muazkadan.switchycompose.ColoredSwitch
 import ind.lke.tasktracker.Room.Task
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -114,7 +116,9 @@ fun TaskCreateEditView(
             )
             Spacer(modifier = Modifier.height(5.dp))
             Row(
-                modifier = Modifier.padding(start = 16.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = "Select Due Date: ${viewModel.taskDueDateState}",
@@ -125,13 +129,18 @@ fun TaskCreateEditView(
             }
             Spacer(modifier = Modifier.height(10.dp))
             Row(
-                modifier = Modifier.padding(start = 16.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = "Status: ")
-                Checkbox(
-                   checked = viewModel.taskStatusState,
-                   onCheckedChange = { viewModel.onTaskStatusChanged(it) })
+                ColoredSwitch(
+                    Modifier.padding(10.dp),
+                    buttonHeight = 20.dp,
+                    borderColor = Color.Black,
+                    switchValue = viewModel.taskStatusState,
+                    onValueChanged = { viewModel.onTaskStatusChanged(it) })
             }
             Spacer(modifier = Modifier.height(10.dp))
             Button(onClick = {
